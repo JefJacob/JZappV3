@@ -1,0 +1,63 @@
+﻿@model IEnumerable<JZappV3.Models.Job>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Open Job Pool</h2>
+@if (!Request.IsAuthenticated)
+{
+    <p>Please login to create your job or commit to other jobs available in the pool</p>
+}
+<p style="color:red">@ViewBag.ErrorMsg</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JobType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinishDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostedBy)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinishDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostedBy)
+            </td>
+
+            <td>
+                @Html.ActionLink("Commit this job", "Commit", new { id = item.JobId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.JobId })
+
+            </td>
+        </tr>
+    }
+
+</table>
